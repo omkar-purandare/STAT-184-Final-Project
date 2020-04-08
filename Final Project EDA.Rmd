@@ -21,7 +21,7 @@ library(DataComputing)
 
 # Guiding Question
 
-What is the relationship between languages spoken in a country to thier social and economic development over the years?
+What is the relationship between languages spoken in a country to thier social and economic development in 2014?
 
 
 # Becoming acquainted with your data sources
@@ -35,10 +35,27 @@ The data sources we will be using for this project are divded into 2 categories:
 
 The Primary data soruces we will use are:
 
-* List of official languages by country and territory from Wikipedia [(link here)](https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory#cite_note-DT-1)
-* Countries GDP data from [(link here)](https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=NY.GDP.MKTP.CD)
-*Countries Education data from [(link here)](https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SE.PRM.ENRR#)
-* Countries IQ scores from [(link here)](https://photius.com/rankings/national_iq_scores_country_ranks.html)
+* List of Number of languages by country from Wikipedia [(link here)](https://en.wikipedia.org/wiki/Number_of_languages_by_country)
+
+  + This data is found on Wikipedia and it controlled by the Wikimedia Foundation Inc  
+  + This data is collected by the Wikimedia Foundation from bunch of sources as the repsective governments webpage, new articles etc. The data is collected for open source knowledge for the population reading this webpage.  
+  + This page was last updated on March 27th 2020.
+  + The variables I mean to use in thei project are Country or Territory and Established
+
+Heres the data imported into this R notebook
+
+```{r}
+page <- "https://en.wikipedia.org/wiki/Number_of_languages_by_country"
+tableList <- page %>%
+  read_html() %>%
+  html_nodes(css = "table") %>%
+  html_table(fill = TRUE)
+  
+Languages <- tableList[[1]]
+
+Languages
+```
+
 
 **Other Data Sources**
 
@@ -46,3 +63,59 @@ The Other data soruces we will use are:
 
 * CountryData
 
+  + This data is from the R package DataComputing
+  + This data is collected by the Central Intelligence Agency in USA. The data is collected for open source knowledge for the population reading this webpage and thier own cataloging.
+  + This page was last updated in 2014.
+  + The variables I mean to use in their project are county and growth, obesity, netUser, cell
+  
+Heres the data imported into this R notebook
+
+```{r}
+CountryData
+```
+
+# Explore intuition related to the research question
+
+Data Wrangling for Languages 
+
+```{r}
+names(Languages)[c(2,3,4,5,6,7,8,9)] <- c("country", "count_lang","immigrant","total","percent","t", "mean", "median")
+```
+
+
+```{r}
+Languages <-
+  Languages %>%
+  filter(row_number() > 1) %>%
+  select(country,count_lang) %>%
+  mutate(count_lang = as.numeric(count_lang))
+```
+
+Joining both Datasets 
+
+```{r}
+Hypo <-
+  Languages %>%
+  left_join(CountryData %>% select(country,growth, obesity, cell), by = c("country" = "country"))
+
+Hypo
+```
+
+Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and growth of country
+```{r}
+Hypo %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  ggplot(aes(x=growth, y= count_lang)) + stat_smooth() + geom_point()
+```
+
+Seing the confidence interval being large we can see there is not much of a relationship between the two varaibles  
+
+
+Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and obesity of country
+```{r}
+Hypo %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  ggplot(aes(x=obesity, y= count_lang)) + stat_smooth() + geom_point()
+```
+
+We can see that the higher the languages spoken in country the lower the obesetiy count is for that country 
