@@ -1,0 +1,19 @@
+---
+title: "Final Project EDA"
+author: "Omkar Purandare"
+date: "April 6, 2020"
+output: html_notebook
+---
+
+# Set Up
+
+```{r}
+# load necessary packages
+library(tidyverse)
+library(mosaic)
+library(rvest)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(DataComputing)
+```
