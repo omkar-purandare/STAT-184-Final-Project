@@ -17,3 +17,32 @@ library(dplyr)
 library(lubridate)
 library(DataComputing)
 ```
+
+
+# Guiding Question
+
+What is the relationship between languages spoken in a country to thier social and economic development over the years?
+
+
+# Becoming acquainted with your data sources
+
+The data sources we will be using for this project are divded into 2 categories:
+
+* Primary Data
+* Other Data Sources
+
+**Primary Data**
+
+The Primary data soruces we will use are:
+
+* List of official languages by country and territory from Wikipedia [(link here)](https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory#cite_note-DT-1)
+* Countries GDP data from [(link here)](https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=NY.GDP.MKTP.CD)
+*Countries Education data from [(link here)](https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SE.PRM.ENRR#)
+* Countries IQ scores from [(link here)](https://photius.com/rankings/national_iq_scores_country_ranks.html)
+
+**Other Data Sources**
+
+The Other data soruces we will use are:
+
+* CountryData
+

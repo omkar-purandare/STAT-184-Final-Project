@@ -1768,9 +1768,35 @@ library(lubridate)
 library(DataComputing)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="guiding-question" class="section level1">
+<h1>Guiding Question</h1>
+<p>What is the relationship between languages spoken in a country to thier social and economic development over the years?</p>
+</div>
+<div id="becoming-acquainted-with-your-data-sources" class="section level1">
+<h1>Becoming acquainted with your data sources</h1>
+<p>The data sources we will be using for this project are divded into 2 categories:</p>
+<ul>
+<li>Primary Data</li>
+<li>Other Data Sources</li>
+</ul>
+<p><strong>Primary Data</strong></p>
+<p>The Primary data soruces we will use are:</p>
+<ul>
+<li>List of official languages by country and territory from Wikipedia <a href="https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory#cite_note-DT-1">(link here)</a></li>
+<li>Countries GDP data from <a href="https://databank.worldbank.org/reports.aspx?source=2&amp;type=metadata&amp;series=NY.GDP.MKTP.CD">(link here)</a> *Countries Education data from <a href="https://databank.worldbank.org/reports.aspx?source=2&amp;type=metadata&amp;series=SE.PRM.ENRR#">(link here)</a></li>
+<li>Countries IQ scores from <a href="https://photius.com/rankings/national_iq_scores_country_ranks.html">(link here)</a></li>
+</ul>
+<p><strong>Other Data Sources</strong></p>
+<p>The Other data soruces we will use are:</p>
+<ul>
+<li>CountryData</li>
+</ul>
+<!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmluYWwgUHJvamVjdCBFREEiCmF1dGhvcjogIk9ta2FyIFB1cmFuZGFyZSIKZGF0ZTogIkFwcmlsIDYsIDIwMjAiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMgU2V0IFVwCgpgYGB7cn0KIyBsb2FkIG5lY2Vzc2FyeSBwYWNrYWdlcwpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShtb3NhaWMpCmxpYnJhcnkocnZlc3QpCmxpYnJhcnkodGlkeXIpCmxpYnJhcnkoZHBseXIpCmxpYnJhcnkobHVicmlkYXRlKQpsaWJyYXJ5KERhdGFDb21wdXRpbmcpCmBgYAo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmluYWwgUHJvamVjdCBFREEiCmF1dGhvcjogIk9ta2FyIFB1cmFuZGFyZSIKZGF0ZTogIkFwcmlsIDYsIDIwMjAiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMgU2V0IFVwCgpgYGB7cn0KIyBsb2FkIG5lY2Vzc2FyeSBwYWNrYWdlcwpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShtb3NhaWMpCmxpYnJhcnkocnZlc3QpCmxpYnJhcnkodGlkeXIpCmxpYnJhcnkoZHBseXIpCmxpYnJhcnkobHVicmlkYXRlKQpsaWJyYXJ5KERhdGFDb21wdXRpbmcpCmBgYAoKCiMgR3VpZGluZyBRdWVzdGlvbgoKV2hhdCBpcyB0aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gbGFuZ3VhZ2VzIHNwb2tlbiBpbiBhIGNvdW50cnkgdG8gdGhpZXIgc29jaWFsIGFuZCBlY29ub21pYyBkZXZlbG9wbWVudCBvdmVyIHRoZSB5ZWFycz8KCgojIEJlY29taW5nIGFjcXVhaW50ZWQgd2l0aCB5b3VyIGRhdGEgc291cmNlcwoKVGhlIGRhdGEgc291cmNlcyB3ZSB3aWxsIGJlIHVzaW5nIGZvciB0aGlzIHByb2plY3QgYXJlIGRpdmRlZCBpbnRvIDIgY2F0ZWdvcmllczoKCiogUHJpbWFyeSBEYXRhCiogT3RoZXIgRGF0YSBTb3VyY2VzCgoqKlByaW1hcnkgRGF0YSoqCgpUaGUgUHJpbWFyeSBkYXRhIHNvcnVjZXMgd2Ugd2lsbCB1c2UgYXJlOgoKKiBMaXN0IG9mIG9mZmljaWFsIGxhbmd1YWdlcyBieSBjb3VudHJ5IGFuZCB0ZXJyaXRvcnkgZnJvbSBXaWtpcGVkaWEgWyhsaW5rIGhlcmUpXShodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9MaXN0X29mX29mZmljaWFsX2xhbmd1YWdlc19ieV9jb3VudHJ5X2FuZF90ZXJyaXRvcnkjY2l0ZV9ub3RlLURULTEpCiogQ291bnRyaWVzIEdEUCBkYXRhIGZyb20gWyhsaW5rIGhlcmUpXShodHRwczovL2RhdGFiYW5rLndvcmxkYmFuay5vcmcvcmVwb3J0cy5hc3B4P3NvdXJjZT0yJnR5cGU9bWV0YWRhdGEmc2VyaWVzPU5ZLkdEUC5NS1RQLkNEKQoqQ291bnRyaWVzIEVkdWNhdGlvbiBkYXRhIGZyb20gWyhsaW5rIGhlcmUpXShodHRwczovL2RhdGFiYW5rLndvcmxkYmFuay5vcmcvcmVwb3J0cy5hc3B4P3NvdXJjZT0yJnR5cGU9bWV0YWRhdGEmc2VyaWVzPVNFLlBSTS5FTlJSIykKKiBDb3VudHJpZXMgSVEgc2NvcmVzIGZyb20gWyhsaW5rIGhlcmUpXShodHRwczovL3Bob3RpdXMuY29tL3JhbmtpbmdzL25hdGlvbmFsX2lxX3Njb3Jlc19jb3VudHJ5X3JhbmtzLmh0bWwpCgoqKk90aGVyIERhdGEgU291cmNlcyoqCgpUaGUgT3RoZXIgZGF0YSBzb3J1Y2VzIHdlIHdpbGwgdXNlIGFyZToKCiogQ291bnRyeURhdGEKCg==</div>
 
 
 
