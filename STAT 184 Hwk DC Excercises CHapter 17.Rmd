@@ -1,0 +1,33 @@
+---
+title: "STAT 184 Homework Exercises" 
+subtitle: "DataComputing Chapters 17"
+author: "Omkar Purandare"
+output: html_notebook
+---
+
+## Assigned Exercises
+
+- DC Chapter 17 Exercises: 17.1, 17.3, 17.4, 17.5, 17.7
+
+
+## Front Matter
+
+```{r}
+# clean up workspace environment
+rm(list = ls())
+
+# all packages used for the assignment
+library(mosaic)
+library(tidyverse)
+
+```
+
+
+
+## Chapter 17 Exercises
+
+### Problem 17.1
+
+
+### Problem 17.2
+
