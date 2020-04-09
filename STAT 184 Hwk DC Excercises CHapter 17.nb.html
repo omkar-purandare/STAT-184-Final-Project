@@ -1762,14 +1762,17 @@ summary {
 <h2>Front Matter</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjbGVhbiB1cCB3b3Jrc3BhY2UgZW52aXJvbm1lbnRcbnJtKGxpc3QgPSBscygpKVxuXG4jIGFsbCBwYWNrYWdlcyB1c2VkIGZvciB0aGUgYXNzaWdubWVudFxubGlicmFyeShtb3NhaWMpXG5saWJyYXJ5KHRpZHl2ZXJzZSlcblxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjbGVhbiB1cCB3b3Jrc3BhY2UgZW52aXJvbm1lbnRcbnJtKGxpc3QgPSBscygpKVxuXG4jIGFsbCBwYWNrYWdlcyB1c2VkIGZvciB0aGUgYXNzaWdubWVudFxubGlicmFyeShtb3NhaWMpXG5saWJyYXJ5KHRpZHl2ZXJzZSlcbmxpYnJhcnkoRGF0YUNvbXB1dGluZylcbmxpYnJhcnkodGlkeXZlcnNlKVxubGlicmFyeSh0aWR5cilcbmxpYnJhcnkoZHBseXIpXG5gYGAifQ== -->
 <pre class="r"><code># clean up workspace environment
 rm(list = ls())
 
 # all packages used for the assignment
 library(mosaic)
 library(tidyverse)
-</code></pre>
+library(DataComputing)
+library(tidyverse)
+library(tidyr)
+library(dplyr)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1778,6 +1781,71 @@ library(tidyverse)
 <h2>Chapter 17 Exercises</h2>
 <div id="problem-17.1" class="section level3">
 <h3>Problem 17.1</h3>
+<p>Using the BabyNames data table, find the 10 most popular names according to each of these criteria:</p>
+<ul>
+<li>Boys’ names ending in a vowel.</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQmFieU5hbWVzICU+JSBcbiAgZmlsdGVyKGdyZXBsKCBcIlthZWlvdV0kXCIsIG5hbWUgKSAsIHNleCA9PVwiTVwiKSAlPiVcbiAgZ3JvdXBfYnkobmFtZSwgc2V4KSAlPiVcbiAgc3VtbWFyaXNlKHRvdGFsID0gc3VtKGNvdW50KSkgJT4lXG4gIGFycmFuZ2UoZGVzYyh0b3RhbCkpICU+JVxuICBoZWFkKDEwKVxuYGBgIn0= -->
+<pre class="r"><code>BabyNames %&gt;% 
+  filter(grepl( &quot;[aeiou]$&quot;, name ) , sex ==&quot;M&quot;) %&gt;%
+  group_by(name, sex) %&gt;%
+  summarise(total = sum(count)) %&gt;%
+  arrange(desc(total)) %&gt;%
+  head(10)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjMsIm5yb3ciOjEwfSwicmRmIjoiSDRzSUFBQUFBQUFBQTYxUlBVL0RNQkM5SnJIYlJpb3FBdkVQRUN5TmhCQVZDd3ZpUXlxd0lCQmRUV3JhQ0dOWGRxSzJHLzhBL2djakV5TnN6RXo4Q1VZR2hnWW50U1BrbVVpSjM3czd2OHU5T3ovb2I0ZjlFQUI4OExFSFB0SVEwT1hGVVdjWElQQTBxVUVBemVLYzZxS1ZzaEtncmQvUUpQQXhGWEpJTGVzSk5jcUlZWUZtTmhPY3pKakZqVk15a1pUSGx2czlVUWxjSll3bGxxRWVWWlVDMnBkWmRRVWZaa1BLcWZNenRiUC9Cd0N0c3NQYStpTXN2MjFBWTI4VjZwczdnTCtlQVgrK0FQNTRBdHg5QVBST0FMMytPTDQxcFpoRW5OeFJaWVM4ZS8zSjgvemJLVVF4STBxWmVXd3dISkNVUkRkUzMzZkxyV2E3M0lueHVBaGFUeFdkMnRwVXBJUnBNSGRFNm1LY0pvSnJHYTlZTFhLNjE2UVRhR2U4NkREb3hLT00zM2EydXFVeFJYN3h0QXdPLzJCLzBUUElqUmF5QzZSOG1QQnF0NHhjVTJiSWt2YXNIQzhheTRTbjFnc2RWZEZpRkJPSkJiT1JjamlZL3dLc3V1S2wwZ0lBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]},{"label":["total"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"George","2":"M","3":"1451408"},{"1":"Joshua","2":"M","3":"1163815"},{"1":"Jose","2":"M","3":"539924"},{"1":"Kyle","2":"M","3":"469045"},{"1":"Lawrence","2":"M","3":"454323"},{"1":"Joe","2":"M","3":"448953"},{"1":"Willie","2":"M","3":"447403"},{"1":"Jesse","2":"M","3":"407183"},{"1":"Bruce","2":"M","3":"379233"},{"1":"Eugene","2":"M","3":"377338"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ul>
+<li>Names with a space (like Lee Ann)</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQmFieU5hbWVzICU+JSBcbiAgZmlsdGVyKCBncmVwbCAoXCIuXFxcXHMuXCIsIG5hbWUpKSAlPiVcbiAgZ3JvdXBfYnkobmFtZSwgc2V4KSAlPiVcbiAgc3VtbWFyaXNlKHRvdGFsID0gc3VtKGNvdW50KSkgJT4lXG4gIGFycmFuZ2UoZGVzYyh0b3RhbCkpXG5gYGAifQ== -->
+<pre class="r"><code>BabyNames %&gt;% 
+  filter( grepl (&quot;.\\s.&quot;, name)) %&gt;%
+  group_by(name, sex) %&gt;%
+  summarise(total = sum(count)) %&gt;%
+  arrange(desc(total))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjMsIm5yb3ciOjB9LCJyZGYiOiJINHNJQUFBQUFBQUFBMjFRUVE2Q01CQmNXcXFCUkVQaU8rQ2dGNzBiSDJBMDRWb0JsVmhiUWt2azlXZ0xiWXlOdmV6dWRHZW0wK00rMzhSNURBQVk4QXdCSnJvRmNqNGQwaTFBaVBRUVFBaVJxYjFlV28yYkFBbE14OVhGVkg0SWhOTm5KZTBTdG1Cb1FOdGpXZlZ1VndsRm1TY1F0ZUtWT1pHL0RnV2owams0TUM2cG90bTFOVDRBZzBlWmkwYlZnbXNTTWxtSVJ3NWFEMGc2Ymw1UXBzVzk0NDkwdlRNTzQvMDN1Ti9qeVJPOXJSYXhXck9LMzJydTBoTkdMeFd6dzFKSEhaTm1UVnR6NWFKb1ZHYlQxMWlrRU13aFl6Z1lQall1V0Z6REFRQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]},{"label":["total"],"name":[3],"type":["int"],"align":["right"]}],"data":[],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[0]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ul>
+<li>Names ending with “joe” (like BettyJoe)</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQmFieU5hbWVzICU+JSBcbiAgZmlsdGVyKGdyZXBsKCBcImpvZVwiLCBuYW1lICkpICU+JVxuICBncm91cF9ieShuYW1lLCBzZXgpICU+JVxuICBzdW1tYXJpc2UodG90YWwgPSBzdW0oY291bnQpKSAlPiVcbiAgYXJyYW5nZShkZXNjKHRvdGFsKSlcbmBgYCJ9 -->
+<pre class="r"><code>BabyNames %&gt;% 
+  filter(grepl( &quot;joe&quot;, name )) %&gt;%
+  group_by(name, sex) %&gt;%
+  summarise(total = sum(count)) %&gt;%
+  arrange(desc(total))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5jb2wiOjMsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFBM1ZSeVU3RE1CQ2RMRTVKUkZHa2ZrZHlBU0hPQ1BXQWxBc0NxUnlkMUcwRHhxNmNWSlFiVjM2WlE4UEVDMDJEaURUMm16ZHZOdWZoYm5HWkxCSUFDQ0NJZkFnSVFpQlBqL1BzQmlEMDBmRWdoTGkvOXlpYWFTVkFpaGJad05sdHpmbkhpMlMvdml6TGdSOFZWQjI5dUZmWDdFaE1NRHhReC9keUk0UW1UdHQ0eGY5Zy9nY1VlRXgxTm5oZmVEK2puUnRmR3hsdEZ5djVuZ3Y2eGhxYjZIL2kwWFhkOTBoSUtrNmJ4czdteUdSSlc1cXZGT2FQNWE1bXFsL09rR0ZQV2h3MGJPKzByV3dwUjNBWUZabkliVnRMZ1dYOG1abjlwTHVuUmtTNkUzMkhaVlp0ZHVJMXU3cnVSOVJ4ODAwdGpnWTRNRDNEenRZaTd1OHhzYTZGbTVad1dqSnVuUXQ4TTcxZXZsVzFhTjFiSU52a1poWExWSkk3Umk4SGh4L3R4VXJNZUFJQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]},{"label":["total"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Billyjoe","2":"M","3":"393"},{"1":"Bobbyjoe","2":"M","3":"89"},{"1":"Marjoe","2":"M","3":"12"},{"1":"Billiejoe","2":"F","3":"6"},{"1":"Maryjoe","2":"F","3":"6"},{"1":"Johnnyjoe","2":"M","3":"5"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 </div>
 <div id="problem-17.2" class="section level3">
 <h3>Problem 17.2</h3>
@@ -1785,7 +1853,7 @@ library(tidyverse)
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1RBVCAxODQgSG9tZXdvcmsgRXhlcmNpc2VzIiAKc3VidGl0bGU6ICJEYXRhQ29tcHV0aW5nIENoYXB0ZXJzIDE3IgphdXRob3I6ICJPbWthciBQdXJhbmRhcmUiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMjIEFzc2lnbmVkIEV4ZXJjaXNlcwoKLSBEQyBDaGFwdGVyIDE3IEV4ZXJjaXNlczogMTcuMSwgMTcuMywgMTcuNCwgMTcuNSwgMTcuNwoKCiMjIEZyb250IE1hdHRlcgoKYGBge3J9CiMgY2xlYW4gdXAgd29ya3NwYWNlIGVudmlyb25tZW50CnJtKGxpc3QgPSBscygpKQoKIyBhbGwgcGFja2FnZXMgdXNlZCBmb3IgdGhlIGFzc2lnbm1lbnQKbGlicmFyeShtb3NhaWMpCmxpYnJhcnkodGlkeXZlcnNlKQoKYGBgCgoKCiMjIENoYXB0ZXIgMTcgRXhlcmNpc2VzCgojIyMgUHJvYmxlbSAxNy4xCgoKIyMjIFByb2JsZW0gMTcuMgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1RBVCAxODQgSG9tZXdvcmsgRXhlcmNpc2VzIiAKc3VidGl0bGU6ICJEYXRhQ29tcHV0aW5nIENoYXB0ZXJzIDE3IgphdXRob3I6ICJPbWthciBQdXJhbmRhcmUiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMjIEFzc2lnbmVkIEV4ZXJjaXNlcwoKLSBEQyBDaGFwdGVyIDE3IEV4ZXJjaXNlczogMTcuMSwgMTcuMywgMTcuNCwgMTcuNSwgMTcuNwoKCiMjIEZyb250IE1hdHRlcgoKYGBge3J9CiMgY2xlYW4gdXAgd29ya3NwYWNlIGVudmlyb25tZW50CnJtKGxpc3QgPSBscygpKQoKIyBhbGwgcGFja2FnZXMgdXNlZCBmb3IgdGhlIGFzc2lnbm1lbnQKbGlicmFyeShtb3NhaWMpCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KERhdGFDb21wdXRpbmcpCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KHRpZHlyKQpsaWJyYXJ5KGRwbHlyKQpgYGAKCgojIyBDaGFwdGVyIDE3IEV4ZXJjaXNlcwoKIyMjIFByb2JsZW0gMTcuMQoKVXNpbmcgdGhlIEJhYnlOYW1lcyBkYXRhIHRhYmxlLCBmaW5kIHRoZSAxMCBtb3N0IHBvcHVsYXIgbmFtZXMgYWNjb3JkaW5nIHRvIGVhY2ggb2YgdGhlc2UgY3JpdGVyaWE6CgoqIEJveXPigJkgbmFtZXMgZW5kaW5nIGluIGEgdm93ZWwuCmBgYHtyfQpCYWJ5TmFtZXMgJT4lIAogIGZpbHRlcihncmVwbCggIlthZWlvdV0kIiwgbmFtZSApICwgc2V4ID09Ik0iKSAlPiUKICBncm91cF9ieShuYW1lLCBzZXgpICU+JQogIHN1bW1hcmlzZSh0b3RhbCA9IHN1bShjb3VudCkpICU+JQogIGFycmFuZ2UoZGVzYyh0b3RhbCkpICU+JQogIGhlYWQoMTApCmBgYAoKKiBOYW1lcyB3aXRoIGEgc3BhY2UgKGxpa2UgTGVlIEFubikKYGBge3J9CkJhYnlOYW1lcyAlPiUgCiAgZmlsdGVyKGdyZXBsKCAiWyBdICIsIG5hbWUgKSkgJT4lCiAgZ3JvdXBfYnkobmFtZSwgc2V4KSAlPiUKICBzdW1tYXJpc2UodG90YWwgPSBzdW0oY291bnQpKSAlPiUKICBhcnJhbmdlKGRlc2ModG90YWwpKQpgYGAKCiogTmFtZXMgZW5kaW5nIHdpdGgg4oCcam9l4oCdIChsaWtlIEJldHR5Sm9lKQpgYGB7cn0KQmFieU5hbWVzICU+JSAKICBmaWx0ZXIoZ3JlcGwoICJqb2UiLCBuYW1lICkpICU+JQogIGdyb3VwX2J5KG5hbWUsIHNleCkgJT4lCiAgc3VtbWFyaXNlKHRvdGFsID0gc3VtKGNvdW50KSkgJT4lCiAgYXJyYW5nZShkZXNjKHRvdGFsKSkKYGBgCgoKIyMjIFByb2JsZW0gMTcuMgoK</div>
 
 
 

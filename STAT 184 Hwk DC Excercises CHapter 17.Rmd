@@ -19,14 +19,46 @@ rm(list = ls())
 # all packages used for the assignment
 library(mosaic)
 library(tidyverse)
-
+library(DataComputing)
+library(tidyverse)
+library(tidyr)
+library(dplyr)
 ```
-
 
 
 ## Chapter 17 Exercises
 
 ### Problem 17.1
+
+Using the BabyNames data table, find the 10 most popular names according to each of these criteria:
+
+* Boys’ names ending in a vowel.
+```{r}
+BabyNames %>% 
+  filter(grepl( "[aeiou]$", name ) , sex =="M") %>%
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) %>%
+  head(10)
+```
+
+* Names with a space (like Lee Ann)
+```{r}
+BabyNames %>% 
+  filter(grepl( "[ ] ", name )) %>%
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total))
+```
+
+* Names ending with “joe” (like BettyJoe)
+```{r}
+BabyNames %>% 
+  filter(grepl( "joe", name )) %>%
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total))
+```
 
 
 ### Problem 17.2
