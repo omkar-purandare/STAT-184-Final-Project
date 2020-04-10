@@ -60,6 +60,12 @@ BabyNames %>%
   arrange(desc(total))
 ```
 
-
 ### Problem 17.2
+
+Construct a regular expression that matches names that sound like “Caitlin” — A k or c followed by one or more vowels followed by tl then one or more vowels, and ending with n.
+
+```{r}
+BabyNames %>% 
+  filter(grepl( "^[K,C][a,e,i,o,u]*tl+[a,e,i,o,u]*n$", name ))
+```
 
