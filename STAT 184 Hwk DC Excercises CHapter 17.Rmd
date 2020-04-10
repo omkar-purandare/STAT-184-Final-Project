@@ -54,7 +54,7 @@ BabyNames %>%
 * Names ending with “joe” (like BettyJoe)
 ```{r}
 BabyNames %>% 
-  filter(grepl( "joe", name )) %>%
+  filter(grepl( "joe$|Joe$", name )) %>%
   group_by(name, sex) %>%
   summarise(total = sum(count)) %>%
   arrange(desc(total))
@@ -79,5 +79,13 @@ The components of the string being extracted is the:
 
 ### Problem 17.4
 
+1: How long will the strings be that match the pattern?  
 
+**The strings that match the pattern will have a length of 2.  **
+
+2: How many different strings will match?   
+
+**On a whole there can be 60 strings that will match**
+
+**3: This is pattern is meant o figure out the State in US Postal Code for an address**
 
