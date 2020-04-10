@@ -89,3 +89,27 @@ The components of the string being extracted is the:
 
 **3: This is pattern is meant o figure out the State in US Postal Code for an address**
 
+### Problem 17.5
+
+Adding Bible Names to the Environment 
+
+```{r}
+BibleNames <- 
+  readr::read_csv("http://tiny.cc/dcf/BibleNames.csv")
+```
+
+1] Which names have any of these words in them: “bar”, “dam”, “lory”?
+
+```{r}
+BibleNames %>%
+  filter(grepl( "bar|dam|lory", name ))
+```
+
+2] Which names end with those words?
+
+```{r}
+BibleNames %>%
+  filter(grepl( "bar$|dam$|lory$", name ))
+```
+
+

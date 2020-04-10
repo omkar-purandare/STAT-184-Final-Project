@@ -1880,11 +1880,65 @@ library(dplyr)</code></pre>
 <p>2: How many different strings will match?</p>
 <p><strong>On a whole there can be 60 strings that will match</strong></p>
 <p><strong>3: This is pattern is meant o figure out the State in US Postal Code for an address</strong></p>
+</div>
+<div id="problem-17.5" class="section level3">
+<h3>Problem 17.5</h3>
+<p>Adding Bible Names to the Environment</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQmlibGVOYW1lcyA8LSBcbiAgcmVhZHI6OnJlYWRfY3N2KFwiaHR0cDovL3RpbnkuY2MvZGNmL0JpYmxlTmFtZXMuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code>BibleNames &lt;- 
+  readr::read_csv(&quot;http://tiny.cc/dcf/BibleNames.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBuYW1lID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIG1lYW5pbmcgPSBcdTAwMWJbMzFtY29sX2NoYXJhY3RlcigpXHUwMDFiWzM5bVxuKVxuMSBwYXJzaW5nIGZhaWx1cmUuXG5yb3cgY29sICBleHBlY3RlZCAgICBhY3R1YWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZpbGVcbjg3MyAgLS0gMiBjb2x1bW5zIDMgY29sdW1ucyAnaHR0cDovL3RpbnkuY2MvZGNmL0JpYmxlTmFtZXMuY3N2J1xuIn0= -->
+<pre><code>Parsed with column specification:
+cols(
+  name = [31mcol_character()[39m,
+  meaning = [31mcol_character()[39m
+)
+1 parsing failure.
+row col  expected    actual                                file
+873  -- 2 columns 3 columns 'http://tiny.cc/dcf/BibleNames.csv'</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>1] Which names have any of these words in them: “bar”, “dam”, “lory”?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQmlibGVOYW1lcyAlPiVcbiAgZmlsdGVyKGdyZXBsKCBcImJhcnxkYW18bG9yeVwiLCBuYW1lICkpXG5gYGAifQ== -->
+<pre class="r"><code>BibleNames %&gt;%
+  filter(grepl( &quot;bar|dam|lory&quot;, name ))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJuY29sIjoyLCJucm93IjoxOH0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzVlUzMi9UTUJETytpTmRBeHRsUTBKQ1FsZ0NhVTl0SmNZRG9rOGRHd01ob1lrZjB0NlFrMXhxczhTT2JJZHRQUEVYOHllc25GTTdHUUVlMnQ1OTk1M3Z1enU3SDQvUEQ2UHpLQWlDZnRBUGUwRi9pR1l3L1BMNXpmUmxFQXg2Nkd3RmcyQnNmNitRdEkrR0JTZjQyWE9CY0JsVHhRdm5iUzhUeUZOYVVPY1BsdWcwVEJ0Z3podGFqenRuZkFTR1VUekk1MFVXbUZyQTg4UFhETkIzM3VqWXNzRUhSeWQ1SWR0S2QwOUtCbnFLUU5Fb0c1M1NIN1E5SUR6bGNldEY3NzdCbE41dVpPYzlUVUhYRWdSNFZlRVpWVzNTK0l6cXVvVHd6WCtxSmVJWmY0N29RVW0xcGl2UUMySXRFQ3RRMnNWMk00NERJeklqY1M1bDZ0QTdRSlZoMXd1aXdFUDdhSklhWG5UWmo0cHJVbEJSc3hmRXA3SUtNY2Q0YUJnUUppc05OamVSSXVNcGlBUmNlR0xEQ1pNb2JjTnkrUDFNcWdSVEZORkdvV3pqNS8zTUpseEtoZVdzWlJnWHF3V2hKQVpBZFRHa0hJUngzRDNMT0pWMWp3VlFYYW5tZU1peVNuTXAvbXFmRXF4WFU1dDlvUUlwVmw0d0ExcHFtL1lXWWdXWGZwcVBtY3k1QUYySHFDQmNZSy9hVUdHSWxzMmFLTkZWWEtuWStVOUtxVXl0UXBHVTR6cTV0djEwUlUyd0VMM0FBSzZSeVJKMDU0VU1reHlYNjFidndTaWxoczR5UlF2bzBNZEtYczRFNGpabHh6NnNuL2kxWHE5L2RZamJwWkp4RG9WMkQzRG8rRnZvODZZY0hvaTU2MDc1OFhOY2RsNFZvcXRyZlBpZndOTURaa3o1YWo0M1hGelBrbVNlSnRuOGlLT0FEMWJyTE5IZkQ3cU4reTRtdGJvTjJNZjJ2SW1WZkM5d1ZVSmlta3NkMHNSVTFFY0hHYy9kbVBycnpsVFdHN3puTyt6N0UweWNmMDB6WHdxOWYwMCt1Tm1rRDMxNno1ZTAydjAvQk41T2dmdHQ2VTJMSTFuYUc0Sk45dndLYmc5dFMzV0FlNVd3QjZmVGhGWGlZdnJDNm5GckN0cjE0UjlFYS9jNkN2MGdRM3gzZUtYOXJITWFnMjl4RjJkY3ozNVdLdDY4dHdoUlBUUFNOSE9OY0FFZXFYc0xibjRENVJOdlRQb0ZBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["meaning"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"Abarim","2":"passages; passengers"},{"1":"Aceldama","2":"field of blood"},{"1":"Adam","2":"earthy; red"},{"1":"Adamah","2":"red earth; of blood"},{"1":"Adami","2":"my man; red; earthy; human"},{"1":"Bethabara","2":"the house of confidence"},{"1":"Beth-barah","2":"the chosen house"},{"1":"Chebar","2":"force or strength"},{"1":"Dabareh","2":"the word; the thing; a bee; obedient"},{"1":"Elmodam","2":"the God of measure"},{"1":"Ephes-dammim","2":"effusion of blood"},{"1":"Gazabar","2":"a treasurer"},{"1":"Gibbar","2":"strong"},{"1":"Ije-abarim","2":"heaps of Hebrews"},{"1":"Kadesh-barnea","2":"holiness of an inconstant son"},{"1":"Parbar","2":"a suburb"},{"1":"Pasdammin","2":"portion or diminishing of blood"},{"1":"Shebarim","2":"breakings; hopes"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[18]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>2] Which names end with those words?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQmlibGVOYW1lcyAlPiVcbiAgZmlsdGVyKGdyZXBsKCBcImJhciR8ZGFtJHxsb3J5JFwiLCBuYW1lICkpXG5gYGAifQ== -->
+<pre class="r"><code>BibleNames %&gt;%
+  filter(grepl( &quot;bar$|dam$|lory$&quot;, name ))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJuY29sIjoyLCJucm93Ijo2fSwicmRmIjoiSDRzSUFBQUFBQUFBQTNWU3owL2JNQlIya3lhbG5kaGcvQU9XZHVEVVZCb0gwSFlhRy9RMm9XbVR1RTJPNHhCcmlSMDVEZ05PKzd0M0lEeTNmaWxZMjZIcGU5LzcrWDNQMzc1Y255eXVGNFNRbU1ScFJPSUVUSkw4K0g2NVBDTmtHb0V6SVZNeWQvOTNrSFFFaGdNUDRKZjZ3UFJUd1JwdnA1OHJrVFBqdmRsRjNlaGRjTFptRDJ3WFRkY3lmK1pkTWVPOGw3MWZDV1pzZGYrUkdsRjQ2TERVaGd1cURlMnNFZXJHVmo3dzFsYUNyblZCZFVrYndicmVDT3pDS0tSdWtIRWNGR3QxNDcwOVJycys3MDBlY0U1NHpick83NFRnb21DV1phVmhqUWpTNTBiL3poVGdybVRmU2ZVSFBzTXcvQTBTOTFxajgxbzBuWmMwOGZrVDhPVTREaHBDN1JDTW43K25YTmQ5bzhLOTVpZi9DYnc3cnF4dFA2eFdWcXI3alBOVndjdlZ1WVFGdnJwZE05N2RIb2ZFa2NYQlpyc3RHQU05TkdFU2NoRjNyZUIydkUvS3VPMFpScWVsckwxTThSQ29NbXp4Q0JuRzJNSG05YytpeEZIZy9VdDU4cmd0VDdBOHdwRnVkM3h5OEJDVWhEdVA2U1BGbVc2dDFFNnNDRS93WExTSkNZQTN2WEtOaXlXdmV2VnJlZXIyOFdjaXUvUEJ5OTNaVWJBaENwbkNzNVVLZDB4cWxndWsrQm8wM21pZnRVWXFpOFFCN1RLcjdhanJBZzZBeUlZYmVYd0NpMXZ3Nzh3REFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["meaning"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"Adam","2":"earthy; red"},{"1":"Chebar","2":"force or strength"},{"1":"Elmodam","2":"the God of measure"},{"1":"Gazabar","2":"a treasurer"},{"1":"Gibbar","2":"strong"},{"1":"Parbar","2":"a suburb"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1RBVCAxODQgSG9tZXdvcmsgRXhlcmNpc2VzIiAKc3VidGl0bGU6ICJEYXRhQ29tcHV0aW5nIENoYXB0ZXJzIDE3IgphdXRob3I6ICJPbWthciBQdXJhbmRhcmUiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMjIEFzc2lnbmVkIEV4ZXJjaXNlcwoKLSBEQyBDaGFwdGVyIDE3IEV4ZXJjaXNlczogMTcuMSwgMTcuMywgMTcuNCwgMTcuNSwgMTcuNwoKCiMjIEZyb250IE1hdHRlcgoKYGBge3J9CiMgY2xlYW4gdXAgd29ya3NwYWNlIGVudmlyb25tZW50CnJtKGxpc3QgPSBscygpKQoKIyBhbGwgcGFja2FnZXMgdXNlZCBmb3IgdGhlIGFzc2lnbm1lbnQKbGlicmFyeShtb3NhaWMpCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KERhdGFDb21wdXRpbmcpCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KHRpZHlyKQpsaWJyYXJ5KGRwbHlyKQpgYGAKCgojIyBDaGFwdGVyIDE3IEV4ZXJjaXNlcwoKIyMjIFByb2JsZW0gMTcuMQoKVXNpbmcgdGhlIEJhYnlOYW1lcyBkYXRhIHRhYmxlLCBmaW5kIHRoZSAxMCBtb3N0IHBvcHVsYXIgbmFtZXMgYWNjb3JkaW5nIHRvIGVhY2ggb2YgdGhlc2UgY3JpdGVyaWE6CgoqIEJveXPigJkgbmFtZXMgZW5kaW5nIGluIGEgdm93ZWwuCmBgYHtyfQpCYWJ5TmFtZXMgJT4lIAogIGZpbHRlcihncmVwbCggIlthZWlvdV0kIiwgbmFtZSApICwgc2V4ID09Ik0iKSAlPiUKICBncm91cF9ieShuYW1lLCBzZXgpICU+JQogIHN1bW1hcmlzZSh0b3RhbCA9IHN1bShjb3VudCkpICU+JQogIGFycmFuZ2UoZGVzYyh0b3RhbCkpICU+JQogIGhlYWQoMTApCmBgYAoKKiBOYW1lcyB3aXRoIGEgc3BhY2UgKGxpa2UgTGVlIEFubikKYGBge3J9CkJhYnlOYW1lcyAlPiUgCiAgZmlsdGVyKGdyZXBsKCAiWyBdICIsIG5hbWUgKSkgJT4lCiAgZ3JvdXBfYnkobmFtZSwgc2V4KSAlPiUKICBzdW1tYXJpc2UodG90YWwgPSBzdW0oY291bnQpKSAlPiUKICBhcnJhbmdlKGRlc2ModG90YWwpKQpgYGAKCiogTmFtZXMgZW5kaW5nIHdpdGgg4oCcam9l4oCdIChsaWtlIEJldHR5Sm9lKQpgYGB7cn0KQmFieU5hbWVzICU+JSAKICBmaWx0ZXIoZ3JlcGwoICJqb2UkfEpvZSQiLCBuYW1lICkpICU+JQogIGdyb3VwX2J5KG5hbWUsIHNleCkgJT4lCiAgc3VtbWFyaXNlKHRvdGFsID0gc3VtKGNvdW50KSkgJT4lCiAgYXJyYW5nZShkZXNjKHRvdGFsKSkKYGBgCgojIyMgUHJvYmxlbSAxNy4yCgpDb25zdHJ1Y3QgYSByZWd1bGFyIGV4cHJlc3Npb24gdGhhdCBtYXRjaGVzIG5hbWVzIHRoYXQgc291bmQgbGlrZSDigJxDYWl0bGlu4oCdIOKAlCBBIGsgb3IgYyBmb2xsb3dlZCBieSBvbmUgb3IgbW9yZSB2b3dlbHMgZm9sbG93ZWQgYnkgdGwgdGhlbiBvbmUgb3IgbW9yZSB2b3dlbHMsIGFuZCBlbmRpbmcgd2l0aCBuLgoKYGBge3J9CkJhYnlOYW1lcyAlPiUgCiAgZmlsdGVyKGdyZXBsKCAiXltLLENdW2EsZSxpLG8sdV0qdGwrW2EsZSxpLG8sdV0qbiQiLCBuYW1lICkpCmBgYAoKIyMjIFByb2JsZW0gMTcuMwoKVGhpcyByZWd1bGFyIGV4cHJlc3Npb24gd291bGQgbWF0Y2ggdG8gYW55IHN0cmluZyByZWdhcmRpbmcgYSBwaG9uZSBudW1iZXIuClRoZSBjb21wb25lbnRzIG9mIHRoZSBzdHJpbmcgYmVpbmcgZXh0cmFjdGVkIGlzIHRoZTogIAotIDFzdCAyIG51bWJlcnMgICAKLSBBIGh5cGhlbiBhbmQgdGhlIGZvbGxvaW5nIDMgbnVtYmVycyAgIAotIEEgaHlwaGVuIGFuZCB0aGUgZm9sbG93aW5nIDQgbnVtYmVycyAgIAoKIyMjIFByb2JsZW0gMTcuNAoKMTogSG93IGxvbmcgd2lsbCB0aGUgc3RyaW5ncyBiZSB0aGF0IG1hdGNoIHRoZSBwYXR0ZXJuPyAgCgoqKlRoZSBzdHJpbmdzIHRoYXQgbWF0Y2ggdGhlIHBhdHRlcm4gd2lsbCBoYXZlIGEgbGVuZ3RoIG9mIDIuICAqKgoKMjogSG93IG1hbnkgZGlmZmVyZW50IHN0cmluZ3Mgd2lsbCBtYXRjaD8gICAKCioqT24gYSB3aG9sZSB0aGVyZSBjYW4gYmUgNjAgc3RyaW5ncyB0aGF0IHdpbGwgbWF0Y2gqKgoKKiozOiBUaGlzIGlzIHBhdHRlcm4gaXMgbWVhbnQgbyBmaWd1cmUgb3V0IHRoZSBTdGF0ZSBpbiBVUyBQb3N0YWwgQ29kZSBmb3IgYW4gYWRkcmVzcyoqCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1RBVCAxODQgSG9tZXdvcmsgRXhlcmNpc2VzIiAKc3VidGl0bGU6ICJEYXRhQ29tcHV0aW5nIENoYXB0ZXJzIDE3IgphdXRob3I6ICJPbWthciBQdXJhbmRhcmUiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCiMjIEFzc2lnbmVkIEV4ZXJjaXNlcwoKLSBEQyBDaGFwdGVyIDE3IEV4ZXJjaXNlczogMTcuMSwgMTcuMywgMTcuNCwgMTcuNSwgMTcuNwoKCiMjIEZyb250IE1hdHRlcgoKYGBge3J9CiMgY2xlYW4gdXAgd29ya3NwYWNlIGVudmlyb25tZW50CnJtKGxpc3QgPSBscygpKQoKIyBhbGwgcGFja2FnZXMgdXNlZCBmb3IgdGhlIGFzc2lnbm1lbnQKbGlicmFyeShtb3NhaWMpCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KERhdGFDb21wdXRpbmcpCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KHRpZHlyKQpsaWJyYXJ5KGRwbHlyKQpgYGAKCgojIyBDaGFwdGVyIDE3IEV4ZXJjaXNlcwoKIyMjIFByb2JsZW0gMTcuMQoKVXNpbmcgdGhlIEJhYnlOYW1lcyBkYXRhIHRhYmxlLCBmaW5kIHRoZSAxMCBtb3N0IHBvcHVsYXIgbmFtZXMgYWNjb3JkaW5nIHRvIGVhY2ggb2YgdGhlc2UgY3JpdGVyaWE6CgoqIEJveXPigJkgbmFtZXMgZW5kaW5nIGluIGEgdm93ZWwuCmBgYHtyfQpCYWJ5TmFtZXMgJT4lIAogIGZpbHRlcihncmVwbCggIlthZWlvdV0kIiwgbmFtZSApICwgc2V4ID09Ik0iKSAlPiUKICBncm91cF9ieShuYW1lLCBzZXgpICU+JQogIHN1bW1hcmlzZSh0b3RhbCA9IHN1bShjb3VudCkpICU+JQogIGFycmFuZ2UoZGVzYyh0b3RhbCkpICU+JQogIGhlYWQoMTApCmBgYAoKKiBOYW1lcyB3aXRoIGEgc3BhY2UgKGxpa2UgTGVlIEFubikKYGBge3J9CkJhYnlOYW1lcyAlPiUgCiAgZmlsdGVyKGdyZXBsKCAiWyBdICIsIG5hbWUgKSkgJT4lCiAgZ3JvdXBfYnkobmFtZSwgc2V4KSAlPiUKICBzdW1tYXJpc2UodG90YWwgPSBzdW0oY291bnQpKSAlPiUKICBhcnJhbmdlKGRlc2ModG90YWwpKQpgYGAKCiogTmFtZXMgZW5kaW5nIHdpdGgg4oCcam9l4oCdIChsaWtlIEJldHR5Sm9lKQpgYGB7cn0KQmFieU5hbWVzICU+JSAKICBmaWx0ZXIoZ3JlcGwoICJqb2UkfEpvZSQiLCBuYW1lICkpICU+JQogIGdyb3VwX2J5KG5hbWUsIHNleCkgJT4lCiAgc3VtbWFyaXNlKHRvdGFsID0gc3VtKGNvdW50KSkgJT4lCiAgYXJyYW5nZShkZXNjKHRvdGFsKSkKYGBgCgojIyMgUHJvYmxlbSAxNy4yCgpDb25zdHJ1Y3QgYSByZWd1bGFyIGV4cHJlc3Npb24gdGhhdCBtYXRjaGVzIG5hbWVzIHRoYXQgc291bmQgbGlrZSDigJxDYWl0bGlu4oCdIOKAlCBBIGsgb3IgYyBmb2xsb3dlZCBieSBvbmUgb3IgbW9yZSB2b3dlbHMgZm9sbG93ZWQgYnkgdGwgdGhlbiBvbmUgb3IgbW9yZSB2b3dlbHMsIGFuZCBlbmRpbmcgd2l0aCBuLgoKYGBge3J9CkJhYnlOYW1lcyAlPiUgCiAgZmlsdGVyKGdyZXBsKCAiXltLLENdW2EsZSxpLG8sdV0qdGwrW2EsZSxpLG8sdV0qbiQiLCBuYW1lICkpCmBgYAoKIyMjIFByb2JsZW0gMTcuMwoKVGhpcyByZWd1bGFyIGV4cHJlc3Npb24gd291bGQgbWF0Y2ggdG8gYW55IHN0cmluZyByZWdhcmRpbmcgYSBwaG9uZSBudW1iZXIuClRoZSBjb21wb25lbnRzIG9mIHRoZSBzdHJpbmcgYmVpbmcgZXh0cmFjdGVkIGlzIHRoZTogIAotIDFzdCAyIG51bWJlcnMgICAKLSBBIGh5cGhlbiBhbmQgdGhlIGZvbGxvaW5nIDMgbnVtYmVycyAgIAotIEEgaHlwaGVuIGFuZCB0aGUgZm9sbG93aW5nIDQgbnVtYmVycyAgIAoKIyMjIFByb2JsZW0gMTcuNAoKMTogSG93IGxvbmcgd2lsbCB0aGUgc3RyaW5ncyBiZSB0aGF0IG1hdGNoIHRoZSBwYXR0ZXJuPyAgCgoqKlRoZSBzdHJpbmdzIHRoYXQgbWF0Y2ggdGhlIHBhdHRlcm4gd2lsbCBoYXZlIGEgbGVuZ3RoIG9mIDIuICAqKgoKMjogSG93IG1hbnkgZGlmZmVyZW50IHN0cmluZ3Mgd2lsbCBtYXRjaD8gICAKCioqT24gYSB3aG9sZSB0aGVyZSBjYW4gYmUgNjAgc3RyaW5ncyB0aGF0IHdpbGwgbWF0Y2gqKgoKKiozOiBUaGlzIGlzIHBhdHRlcm4gaXMgbWVhbnQgbyBmaWd1cmUgb3V0IHRoZSBTdGF0ZSBpbiBVUyBQb3N0YWwgQ29kZSBmb3IgYW4gYWRkcmVzcyoqCgojIyMgUHJvYmxlbSAxNy41CgpBZGRpbmcgQmlibGUgTmFtZXMgdG8gdGhlIEVudmlyb25tZW50IAoKYGBge3J9CkJpYmxlTmFtZXMgPC0gCiAgcmVhZHI6OnJlYWRfY3N2KCJodHRwOi8vdGlueS5jYy9kY2YvQmlibGVOYW1lcy5jc3YiKQpgYGAKCjFdIFdoaWNoIG5hbWVzIGhhdmUgYW55IG9mIHRoZXNlIHdvcmRzIGluIHRoZW06IOKAnGJhcuKAnSwg4oCcZGFt4oCdLCDigJxsb3J54oCdPwoKYGBge3J9CkJpYmxlTmFtZXMgJT4lCiAgZmlsdGVyKGdyZXBsKCAiYmFyfGRhbXxsb3J5IiwgbmFtZSApKQpgYGAKCjJdIFdoaWNoIG5hbWVzIGVuZCB3aXRoIHRob3NlIHdvcmRzPwoKYGBge3J9CkJpYmxlTmFtZXMgJT4lCiAgZmlsdGVyKGdyZXBsKCAiYmFyJHxkYW0kfGxvcnkkIiwgbmFtZSApKQpgYGAKCgo=</div>
 
 
 
