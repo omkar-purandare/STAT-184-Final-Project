@@ -69,3 +69,15 @@ BabyNames %>%
   filter(grepl( "^[K,C][a,e,i,o,u]*tl+[a,e,i,o,u]*n$", name ))
 ```
 
+### Problem 17.3
+
+This regular expression would match to any string regarding a phone number.
+The components of the string being extracted is the:  
+- 1st 2 numbers   
+- A hyphen and the folloing 3 numbers   
+- A hyphen and the following 4 numbers   
+
+### Problem 17.4
+
+
+
