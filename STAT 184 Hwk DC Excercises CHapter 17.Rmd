@@ -112,4 +112,19 @@ BibleNames %>%
   filter(grepl( "bar$|dam$|lory$", name ))
 ```
 
+### Problem 17.7
+
+Creating a new Data Table Joining BibleName and BabyNames 
+```{r}
+SameNames <-
+  BabyNames %>%
+  inner_join(BibleNames, by= c("name"="name"))
+```
+
+Creating an informative plot showing, year-by-year the proportion of all baby names that are Bible-related
+```{r}
+SameNames %>%
+  ggplot(aes(x=year,y=count ))+geom_bar(stat='identity',position='stack')
+```
+
 
