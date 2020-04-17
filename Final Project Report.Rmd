@@ -1,0 +1,145 @@
+---
+title: "Final Project Report"
+author: "Omkar Purandare"
+date: "April 10, 2020"
+output: html_notebook
+---
+
+# Set Up
+
+```{r}
+# load necessary packages
+library(tidyverse)
+library(mosaic)
+library(rvest)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(DataComputing)
+```
+
+# FINAL PROJECT
+
+# Guiding Question
+
+What is the relationship between languages spoken in a country to thier social and economic development in 2014?
+
+
+# Becoming acquainted with your data sources
+
+The data sources we will be using for this project are divded into 2 categories:
+
+* Primary Data
+* Other Data Sources
+
+**Primary Data**
+
+The Primary data soruces we will use are:
+
+* List of Number of languages by country from Wikipedia [(link here)](https://en.wikipedia.org/wiki/Number_of_languages_by_country)
+
+  + This data is found on Wikipedia and it controlled by the Wikimedia Foundation Inc  
+  + This data is collected by the Wikimedia Foundation from bunch of sources as the repsective governments webpage, new articles etc. The data is collected for open source knowledge for the population reading this webpage.  
+  + This page was last updated on March 27th 2020.
+  + The variables I mean to use in thei project are Country or Territory and Established
+
+Heres the data imported into this R notebook
+
+```{r}
+page <- "https://en.wikipedia.org/wiki/Number_of_languages_by_country"
+tableList <- page %>%
+  read_html() %>%
+  html_nodes(css = "table") %>%
+  html_table(fill = TRUE)
+
+
+
+Languages <- tableList[[1]]
+```
+
+Here's a glimpse at the Data Table
+```{r}
+Languages%>% glimpse()
+Languages
+```
+
+
+**Other Data Sources**
+
+The Other data soruces we will use are:
+
+* CountryData
+
+  + This data is from the R package DataComputing
+  + This data is collected by the Central Intelligence Agency in USA. The data is collected for open source knowledge for the population reading this webpage and thier own cataloging.
+  + This page was last updated in 2014.
+  + The variables I mean to use in their project are county and GDPgrowth, obesity, netUsers, cell
+  
+Heres the data imported into this R notebook
+
+```{r}
+CountryData
+```
+
+Here's a glimpse at the Data Table
+```{r}
+CountryData %>% glimpse()
+```
+
+# Explore intuition related to the research question
+
+Data Wrangling for Languages 
+
+```{r}
+names(Languages)[c(2,3,4,5,6,7,8,9)] <- c("country", "count_lang","immigrant","total","percent","t", "mean", "median")
+```
+
+
+```{r}
+Languages <-
+  Languages %>%
+  filter(row_number() > 1) %>%
+  select(country,count_lang) %>%
+  mutate(count_lang = as.numeric(count_lang))
+```
+
+Joining both Datasets 
+
+```{r}
+Hypo <-
+  Languages %>%
+  left_join(CountryData %>% select(country,GDPgrowth, obesity, cell,netUsers), by = c("country" = "country"))
+
+Hypo
+```
+
+Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and growth of countries GDP
+```{r}
+Hypo %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  ggplot(aes(x=GDPgrowth, y= count_lang)) + stat_smooth() + geom_point()
+```
+
+Seing the confidence interval being large we can see there is not much of a relationship between the two varaibles  
+
+
+Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and obesity of country
+```{r}
+Hypo %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  ggplot(aes(x=obesity, y= count_lang)) + stat_smooth() + geom_point()
+```
+
+We can see that the higher the languages spoken in country the lower the obesetiy count is for that country 
+
+
+Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and internet users of country
+```{r}
+Hypo %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  ggplot(aes(x=netUsers, y= count_lang)) + geom_point() +
+  scale_x_log10() +
+  stat_smooth(method=loess) 
+```
+
+Seing the his grpahich we cans see that countries with more languages spoken have more internet on the general but not drastrically.
