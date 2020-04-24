@@ -26,7 +26,11 @@ library(DataComputing)
 What is the relationship between languages spoken in a country to the respective social and economic development of the country in 2014?
 
 
+## Why this Topic
 
+Growing up both in India and America as a student, I grew up speakign 4 languages and was in an environment where some of my peers spoke upwards of 6-10 langueges due to the language diversity within India. The concepts of language had always intrigued me growing up, it was a form of social currency.   
+
+On coming to Penn State and back to America after 10 years I came to relazie that most American barely speak more than 2 languages. While being a Major industiral hub, and economic leader i wondered how does the Languages spoken in a country affect its enconomy and society.  
 
 **Hence I chose this topic!**
 
