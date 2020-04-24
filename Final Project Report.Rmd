@@ -85,7 +85,7 @@ The Other data sources we will use are:
   + This data is from the R package DataComputing
   + This data is collected by the Central Intelligence Agency in USA. The data is collected for open source knowledge for the population reading this webpage and their own cataloging.
   + This page was last updated in 2014.
-  + The variables I mean to use in their project are county and GDPgrowth, obesity, netUsers, pop, growth
+  + The variables I mean to use in their project are county and GDP,GDPgrowth, obesity, netUsers, pop, growth
   + On a whole it has 256 cases and 76 variables
   
 Here's the data imported into this R notebook
@@ -127,7 +127,7 @@ Creation of a Hypothesis Data Frame that we will use for analysis for the rest o
 # CODE
 Hypo <-
   Languages %>%
-  left_join(CountryData %>% select(country,GDPgrowth, obesity,netUsers,pop,growth), by = c("country" = "country"))
+  left_join(CountryData %>% select(country,GDP,GDPgrowth, obesity,netUsers,pop,growth), by = c("country" = "country"))
 
 Hypo
 ```
@@ -145,8 +145,23 @@ Hypo %>%
   labs(y = "Number of Langues Spoken")
 ```
 
-**Sang the confidence interval being large we can see there is not much of a relationship between the two variables**
+**Seeing the confidence interval being large we can see there is not much of a relationship between the two variables**
 
+
+### Relationship between Languages spoken and GDP Growth in relation to GDP Growth
+```{r}
+# CODE
+# Scatterplot Graph
+Hypo %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  mutate( GDPgrowth = GDPgrowth <0) %>% # Check for all Psitive Growth countries
+  drop_na(GDPgrowth) %>%
+  ggplot(aes(x=GDP, y= count_lang)) + stat_smooth(method = 'loess') + geom_point(aes(color =GDPgrowth)) + scale_x_log10() +
+  ggtitle("Relationship between Languages spoken and GDP\nin relation to GDP Growth") +
+  labs(y = "Number of Langues Spoken")
+```
+
+**Seeing the confidence interval being large we can see there is not much of a relationship between GDP and Languages spoken as the confidence interval is large, especially over the region populated by the countries with no growth and high GDP**
 
 ### Relationship between Languages spoken and Obesity rate
 
@@ -192,9 +207,9 @@ Hypo %>%
   labs(x = "Number of Languages Spoken" )
 ```
 
-**Sang this graphic we can see that countries with more languages spoken have more internet**
+**Seeing this graphic we can see that countries with more languages spoken have more internet**
 
-### Relationship between Languages spoken and Population of the Country
+### Relationship between Languages spoken and Population
 
 Using Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and Population of the country 
 
@@ -206,7 +221,7 @@ Hypo %>%
   mutate(country = reorder(country, count_lang)) %>%
   mutate(the_rank = rank(-pop)) %>% # creating a variable to rank the poplations
   ggplot(aes(x = the_rank, y= count_lang)) + geom_point() + stat_smooth() +
-  ggtitle("Relationship between Languages spoken\nand Population of the Country") +
+  ggtitle("Relationship between Languages spoken\nand Population") +
   labs(x = "<~ Higher (Ranking: Population of Country) Lower ~>") +
   labs(y = "Number of Langues Spoken")
 ```
@@ -215,7 +230,7 @@ Hypo %>%
 
 Now what would this look like for countries where their population increases or decreases per yer?
 
-### Relationship between Languages spoken and Population in relation to Population Growth of the Country 
+### Relationship between Languages spoken and Population in relation to Population Growth
 
 Using Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and Population growth of the country 
 
@@ -230,7 +245,7 @@ Hypo %>%
   ggplot(aes(x = the_rank, y= count_lang))+
   geom_point() + stat_smooth(method = lm) +
   facet_wrap(~growth)+
-  ggtitle("Relationship between Languages spoken and Population\nin relation to the Population Growth of the Country") +
+  ggtitle("Relationship between Languages spoken and\nPopulation in relation to the Population Growth") +
   labs(x = "<~ Higher (Ranking: Population of Country) Lower ~>") +
   labs(y = "Number of Langues Spoken")
 
@@ -238,27 +253,43 @@ Hypo %>%
 
 **Seeing from this graph we can say that for countries with positive growth of population there is a minimum relationship between  the Languages spoken and Population in country, as the number of langues spoken and the population slop remains constant throughout whereas for countries with negative growth the is a stronger relationship between these two identifiers**
 
+# Technical challenges encountered during the investigation
+
+In doing these analysis some challenges I encountered were:
+
+* Acquiring Suitable Data for the Project
+
+This topic was very broad and the data that could be used for analysis innumerate. The challenge was to find trustworthy data which is also accessible to the user. In researching online, most data had to be paid for and open source data links were years behind, hence I decided to use the R package Data Frame CountryData itself 
+
+
+* Getting the data in Glyph ready Format  
+  
+Most of the Data was Tidy but not in a Glyph ready for in order to do analysis so a majority of the coding work done in the chunk is there to transform the data to be suitable for analysis. 
+
+
 
 # Conclusion
 
 We can see that through the above analysis that:  
 
 1. For GDP Growth there is **no relationship**  
-2. For Obesity Rate there is **a relationship and it is negative ** 
-3. For Internet Users there is **a relationship and it is positive**  
-4. For Population there is **a relationship and is it positive**  
-5. For Population Growth the is **no relationship**  
+2. For GDP there is **no relationship ** 
+3. For Obesity Rate there is **a relationship and it is negative ** 
+4. For Internet Users there is **a relationship and it is positive** 
+5. For Population there is **a relationship and is it positive**   
+6. For Population Growth the is **no relationship**  
+
 
 
 Therefore the Percentage of Identifiers with a Relationship
 
-$P = {\frac{3}{5}*100}= 60\%$
+$P = {\frac{3}{6}*100}= 50\%$
 
 Therefore the Percentage of Identifiers with no a Relationship
 
-$P = {\frac{2}{5}*100}= 40\%$
+$P = {\frac{3}{6}*100}= 50\%$
 
-Therefore we can infer that there is on a whole with 76 variables in Country Date there is **Mild Relationship** with Number of Languages spoken in that respective Country.
+Therefore we can hypothesize that there is on a whole with 76 variables in Country Date there is **Mild Relationship** to **No Relationship** with Number of Languages spoken in that respective Country.
 
 
 
