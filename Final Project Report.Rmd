@@ -22,7 +22,13 @@ library(DataComputing)
 
 # Guiding Question
 
+## Question
 What is the relationship between languages spoken in a country to the respective social and economic development of the country?
+
+
+## Why this Topic
+
+
 
 
 ## Becoming acquainted with your data sources
@@ -110,7 +116,7 @@ Languages <-
 
 **Joining both Datasets** 
 
-Creation of a Hypothesis DataFrame we will use for analysis for the rest of the project by joining the Languages and Country Data DataFrame with the respective identifiers we wish to analyze (eg. GDP growth, netUsers etc.)
+Creation of a Hypothesis DataFrame that we will use for analysis for the rest of the project by joining the Languages and Country Data DataFrame with the respective identifiers we wish to analyze (eg. GDP growth, netUsers etc.)
 ```{r}
 # CODE
 Hypo <-
@@ -122,38 +128,49 @@ Hypo
 
 ### Relationship between Languages spoken and GDP Growth
 
-Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and growth of countries GDP
+Using Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and growth of countries GDP
 ```{r}
 # CODE
+# Scatterplot Graph
 Hypo %>%
   mutate(country = reorder(country, count_lang)) %>%
-  ggplot(aes(x=GDPgrowth, y= count_lang)) + stat_smooth() + geom_point()
+  ggplot(aes(x=GDPgrowth, y= count_lang)) + stat_smooth() + geom_point() +
+  ggtitle("Relationship between Languages spoken and GDP Growth") +
+  labs(y = "Number of Langues Spoken")
 ```
 
-Seing the confidence interval being large we can see there is not much of a relationship between the two varaibles  
+**Seing the confidence interval being large we can see there is not much of a relationship between the two varaibles**
+
 
 ### Relationship between Languages spoken and Obesity rate
 
 Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and obesity of country
 ```{r}
 # CODE
+# Density Graph
 Hypo %>%
   mutate(country = reorder(country, count_lang)) %>%
-  ggplot(aes(x=obesity, y= count_lang)) + stat_smooth() + geom_point()
+  ggplot(aes(x=obesity)) + geom_density(stat = "density",
+  position = "identity",adjust = 0.4) +
+  ggtitle("Relationship between Languages spoken and Obesity rate")
 ```
 
-We can see that the higher the languages spoken in country the lower the obesetiy count is for that country 
+**We can see that the density for countries where higher languages are spoken,the obesetiy count is lowerH is for that country** 
 
 ### Relationship between Languages spoken and Internet Users
 
 Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and internet users of country
 ```{r}
 # CODE
+# Scatterplot Graph
 Hypo %>%
   mutate(country = reorder(country, count_lang)) %>%
-  ggplot(aes(x=netUsers, y= count_lang)) + geom_point() +
-  scale_x_log10() +
-  stat_smooth(method=loess) 
+  ggplot(aes(x=country, y= netUsers)) +
+  stat_smooth(aes(),method='loess') +
+  geom_point() +
+  scale_y_log10() +
+  theme(axis.text.x = element_blank()) +
+  ggtitle("Relationship between Languages spoken and Internet Users")
 ```
 
-Seing the his grpahich we cans see that countries with more languages spoken have more internet on the general but not drastrically.
+**Seing this graphic we can see that countries with more languages spoken have more internet on the general but not drastrically.**
