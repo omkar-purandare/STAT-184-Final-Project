@@ -32,7 +32,7 @@ Growing up both in India and America as a student, I grew up speakign 4 language
 
 On coming to Penn State and back to America after 10 years I came to relazie that most American barely speak more than 2 languages. While being a Major industiral hub, and economic leader i wondered how does the Languages spoken in a country affect its enconomy and society.  
 
-**Hence I chose this topic!**
+**Hence I've chosen this topic!**
 
 
 ## Becoming acquainted with your data sources
@@ -235,4 +235,28 @@ Hypo %>%
 ```
 
 **Seeing from this graph we can say that for countries with positve growth of population there is a minimum relationship between  the Languages spoken and Population in country, as the number of langues spoken and the poplation slop remains constant throughout whereas for coutnries with negative growth the is a stronger realtionship between these two identifiers**
+
+
+# Conclusion
+
+We can see that through the above analysis that:  
+
+1. For GDP Growth there is **no relationship**  
+2. For Obesity Rate there is **a relationship and it is negative ** 
+3. For Internet Users there is **a relationship and it is positve**  
+4. For Poulation there is **a relationship and is it positve**  
+5. For Population Growth the is **no relationship**  
+
+
+Therefore the Percentage of Indentifiers with a Relationship
+
+$P = {\frac{3}{5}*100}= 60\%$
+
+Therefore the Percentage of Indentifiers with no a Relationship
+
+$P = {\frac{2}{5}*100}= 40\%$
+
+THerefore we can infer that there is on a whole with 76 variables in Country Date there is **Mild Relationship** with Number of Languages spoken in that respective Country.
+
+
 
