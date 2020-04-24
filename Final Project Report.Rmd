@@ -132,6 +132,38 @@ Hypo <-
 Hypo
 ```
 
+## Basic Visualization
+
+## Country Starting from A-F and their Languages Spoken
+
+Just as a test we will just see the number of langueges spoken with countires starting with letters A- F
+
+```{r fig.height=5, fig.width=5}
+# CODE
+# Scatterplot Graph
+Hypo %>%
+  filter(grepl("^[ABCDEF]", country, ignore.case = TRUE)) %>%
+  ggplot(aes(x=country, y=count_lang)) + geom_point() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(y = "Number of Langues Spoken")
+```
+
+## Country Starting from G-0 and their Languages Spoken
+
+Just as a test we will just see the number of langueges spoken with countires starting with letters G-0. This time lets use density graph
+
+```{r fig.height=5, fig.width=5}
+# CODE
+# Density Graph
+Hypo %>%
+  filter(grepl("^[GHIJKLMNO]", country, ignore.case = TRUE)) %>%
+  ggplot(aes(x=country, y=count_lang)) + geom_density(stat="identity", position = "stack") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(y = "Number of Langues Spoken")
+```
+
+## Analylitcal Visualization
+
 ### Relationship between Languages spoken and GDP Growth
 
 Using Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and growth of countries GDP
@@ -171,8 +203,9 @@ Using Graphics to show some informative plots and summary statistics to see if t
 # Density Graph
 Hypo %>%
   mutate(country = reorder(country, count_lang)) %>%
-  ggplot(aes(x=obesity)) + geom_density(stat = "density",
-  position = "identity",adjust = 0.4) +
+  mutate(obesity_interval = mosaic::ntiles(obesity, n = 4, format = "interval")) %>%
+  ggplot(aes(x=obesity_interval)) + geom_density(stat = "density",
+  position = "identity",adjust = 0.4, aes(fill = obesity_interval)) +
   ggtitle("Relationship between Languages spoken and Obesity rate")
 ```
 
@@ -252,6 +285,9 @@ Hypo %>%
 ```
 
 **Seeing from this graph we can say that for countries with positive growth of population there is a minimum relationship between  the Languages spoken and Population in country, as the number of langues spoken and the population slop remains constant throughout whereas for countries with negative growth the is a stronger relationship between these two identifiers**
+
+
+
 
 # Technical challenges encountered during the investigation
 
