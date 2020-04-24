@@ -23,12 +23,12 @@ library(DataComputing)
 # Guiding Question
 
 ## Question
-What is the relationship between languages spoken in a country to the respective social and economic development of the country?
+What is the relationship between languages spoken in a country to the respective social and economic development of the country in 2014?
 
 
-## Why this Topic
 
 
+**Hence I chose this topic!**
 
 
 ## Becoming acquainted with your data sources
@@ -80,7 +80,7 @@ The Other data soruces we will use are:
   + This data is from the R package DataComputing
   + This data is collected by the Central Intelligence Agency in USA. The data is collected for open source knowledge for the population reading this webpage and thier own cataloging.
   + This page was last updated in 2014.
-  + The variables I mean to use in their project are county and GDPgrowth, obesity, netUsers, cell
+  + The variables I mean to use in their project are county and GDPgrowth, obesity, netUsers, pop, growth
   
 Heres the data imported into this R notebook
 ```{r}
@@ -121,7 +121,7 @@ Creation of a Hypothesis DataFrame that we will use for analysis for the rest of
 # CODE
 Hypo <-
   Languages %>%
-  left_join(CountryData %>% select(country,GDPgrowth, obesity, cell,netUsers), by = c("country" = "country"))
+  left_join(CountryData %>% select(country,GDPgrowth, obesity,,netUsers,pop,growth), by = c("country" = "country"))
 
 Hypo
 ```
@@ -144,7 +144,7 @@ Hypo %>%
 
 ### Relationship between Languages spoken and Obesity rate
 
-Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and obesity of country
+Using Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and obesity of country
 ```{r}
 # CODE
 # Density Graph
@@ -155,11 +155,11 @@ Hypo %>%
   ggtitle("Relationship between Languages spoken and Obesity rate")
 ```
 
-**We can see that the density for countries where higher languages are spoken,the obesetiy count is lowerH is for that country** 
+**We can see that the density for countries where higher languages are spoken,the obesetiy count is lower for that country** 
 
 ### Relationship between Languages spoken and Internet Users
 
-Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and internet users of country
+Using Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and internet users of country
 ```{r}
 # CODE
 # Scatterplot Graph
@@ -173,4 +173,62 @@ Hypo %>%
   ggtitle("Relationship between Languages spoken and Internet Users")
 ```
 
-**Seing this graphic we can see that countries with more languages spoken have more internet on the general but not drastrically.**
+```{r}
+# CODE
+# Boxplot Graph
+Hypo %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  mutate(netGroup = mosaic::ntiles(netUsers, n = 4, format = "interval")) %>%
+  drop_na(netGroup) %>%
+  ggplot(aes(x=count_lang, y=netGroup)) +
+  geom_boxplot() + scale_x_log10() +
+  ggtitle("Boxplot Relationship between Languages spoken\nand Internet Users") +
+  labs(x = "Number of Languages Spoken" )
+```
+
+**Seing this graphic we can see that countries with more languages spoken have more internet**
+
+### Relationship between Languages spoken and Population of the Country
+
+Using Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and Population of the country 
+
+```{r}
+# CODE
+# Scatterplot Graph
+Hypo %>%
+  select(country, count_lang,pop) %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  mutate(the_rank = rank(-pop)) %>% # creating a variable to rank the poplations
+  ggplot(aes(x = the_rank, y= count_lang)) + geom_point() + stat_smooth() +
+  ggtitle("Relationship between Languages spoken\nand Population of the Country") +
+  labs(x = "<~ Higher (Ranking: Population of Country) Lower ~>") +
+  labs(y = "Number of Langues Spoken")
+```
+
+**Seeing from this graph the higher the population corrosponds to higher lannguages counts. There is a strong relarionship as the confidence inteval is also narrow!**
+
+Now what would this look like for countires where thier population increases or decreases per yer?
+
+### Relationship between Languages spoken and Population in relation to Poupulation Growth of the Country 
+
+Using Graphics to show some informative plots and summary statistics to see if there is a relationship between languages spoken in country and Population growth of the country 
+
+```{r}
+
+Hypo %>%
+  select(country, count_lang,pop, growth) %>%
+  mutate(the_rank = rank(-pop)) %>%
+  mutate(country = reorder(country, count_lang)) %>%
+  mutate( growth = growth <0) %>% # Check for all Psitive Growth countries
+  drop_na(growth) %>%
+  ggplot(aes(x = the_rank, y= count_lang))+
+  geom_point() + stat_smooth(method = lm) +
+  facet_wrap(~growth)+
+  ggtitle("Relationship between Languages spoken and Population\nin relation to the Poupulation Growth of the Country") +
+  labs(x = "<~ Higher (Ranking: Population of Country) Lower ~>") +
+  labs(y = "Number of Langues Spoken")
+
+```
+
+**Seeing from this graph we can say that for countries with positve growth of population there is a minimum relationship between  the Languages spoken and Population in country, as the number of langues spoken and the poplation slop remains constant throughout whereas for coutnries with negative growth the is a stronger realtionship between these two identifiers**
+
